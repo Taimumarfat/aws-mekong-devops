@@ -8,9 +8,9 @@ RUN wget https://www.free-css.com/assets/files/free-css-templates/download/page2
 
 RUN unzip neogym.zip
 
-RUN cp -rvf neogym/* .
+RUN cp -rvf neogym-html/* .
 
-RUN rm -rf neogym neogym.zip
+RUN rm -rf neogym-html neogym.zip
 
 CMD ["apache2ctl", "-D", "FOREGROUND"]
 
