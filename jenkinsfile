@@ -1,0 +1,27 @@
+node {
+    stage ('Pull from github'){
+        git branch: 'main', url: 'https://github.com/Taimumarfat/aws-mekong-devops.git'
+    }
+    stage ('Copy files from Jenkins to Docker-Ansible Svr'){
+        sh 'scp /var/lib/jenkins/workspace/AWS-MEKONG-DevOps/Dockerfile ubuntu@172.20.10.199:/home/ubuntu/'
+        sh 'scp /var/lib/jenkins/workspace/AWS-MEKONG-DevOps/ansible.yml ubuntu@172.20.10.199:/home/ubuntu/'
+        sh 'scp /var/lib/jenkins/workspace/AWS-MEKONG-DevOps/Deployment.yml ubuntu@172.20.10.26:/home/ubuntu/'
+        sh 'scp /var/lib/jenkins/workspace/AWS-MEKONG-DevOps/Service.yml ubuntu@172.20.10.26:/home/ubuntu/'
+    }
+    stage ('Docker image with tag'){
+        sh 'ssh ubuntu@172.20.10.199 cd /home/ubuntu/'
+        sh 'ssh ubuntu@172.20.10.199 docker image build -t taimumarfat/aws-mekong-devops:v1.$BUILD_ID .'
+        sh 'ssh ubuntu@172.20.10.199 docker image build -t taimumarfat/aws-mekong-devops:latest .'
+    }
+    stage ('Push the Docker image to Docker Hub'){
+        sh 'ssh ubuntu@172.20.10.199 docker image push taimumarfat/aws-mekong-devops:v1.$BUILD_ID'
+        sh 'ssh ubuntu@172.20.10.199 docker image push taimumarfat/aws-mekong-devops:latest'
+    }
+    stage ('Remove the images from Docker Server'){
+        sh 'ssh ubuntu@172.20.10.199 docker image prune -af'
+    }
+        stage ('Execute K8S from Ansible'){
+        sh 'ssh ubuntu@172.20.10.199 cd /home/ubuntu'
+        sh 'ssh ubuntu@172.20.10.199 ansible-playbook ansible.yml'
+    }
+}
