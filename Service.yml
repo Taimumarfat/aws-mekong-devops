@@ -1,14 +1,14 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: devops
+  name: devops-test
   labels:
-    app: devops
+    app: devops-test
 spec:
   ports:
-    - port: 9080
+    - port: 9090
       targetPort: 80
-      nodePort: 31200
+      nodePort: 31400
   selector:
-    app: devops
+    app: devops-test
   type: LoadBalancer

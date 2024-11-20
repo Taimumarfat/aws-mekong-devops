@@ -1,19 +1,19 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: devops
+  name: devops-test
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: devops
+      app: devops-test
   template:
     metadata:
       labels:
-        app: devops
+        app: devops-test
     spec:
       containers:
-      - name: devops
+      - name: devops-test
         image: taimumarfat/aws-mekong-devops
         imagePullPolicy: Always
         ports:
