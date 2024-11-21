@@ -1,6 +1,6 @@
 - name: Apply K8S Configuration
   hosts: node
-  become: yes
+  become: false
   tasks:
     - name: Create new deployment
       command: kubectl apply -f /home/arafat/Deployment.yml
