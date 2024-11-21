@@ -3,14 +3,14 @@
   become: yes
   tasks:
     - name: Create new deployment
-      command: kubectl apply -f /home/ubuntu/Deployment.yml
+      command: kubectl apply -f /home/arafat/Deployment.yml
       register: result
       environment: 
-        KUBECONFIG: /home/ubuntu/.kube/config
+        KUBECONFIG: /home/arafat/.kube/config
 
     - name: Create new service
-      command: kubectl apply -f /home/ubuntu/Service.yml
+      command: kubectl apply -f /home/arafat/Service.yml
       register: result
       environment: 
-        KUBECONFIG: /home/ubuntu/.kube/config
+        KUBECONFIG: /home/arafat/.kube/config
 
