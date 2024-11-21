@@ -8,7 +8,7 @@ spec:
   ports:
     - port: 9050
       targetPort: 80
-      nodePort: 33400
+      nodePort: 30400
   selector:
     app: devops-test-2
   type: LoadBalancer
