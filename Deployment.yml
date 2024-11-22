@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   name: devops-test-2
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: devops-test-2
